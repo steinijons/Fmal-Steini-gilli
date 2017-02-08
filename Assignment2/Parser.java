@@ -11,6 +11,6 @@ public class Parser {
 	}
 	public void parse() 
 	{
-		
+		token = lex.nextToken();
 	}
 }

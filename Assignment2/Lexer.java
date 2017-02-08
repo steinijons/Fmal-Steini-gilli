@@ -5,6 +5,7 @@ import Assignment2.Token.TokenCode;
 public class Lexer {
 	
 	private String[] arguments;
+	private int currentToken = -1;
 
 	public void writeArguments() 
 	{
@@ -20,23 +21,22 @@ public class Lexer {
 		arguments = args;
 	}
 	
-	public TokenCode nextToken( )
-	{ 
-		for(String arg: arguments)
-		{
-			if(arg.equals("print")) {return Token.TokenCode.PRINT;}
-			if(arg.equals("end")) {return Token.TokenCode.END;}
-			else if(arg.equals("+")) {return Token.TokenCode.ADD;}
-			else if(arg.equals("-")) {return Token.TokenCode.SUB;}
-			else if(arg.equals("*")) {return Token.TokenCode.MULT;}
-			else if(arg.equals("(")) {return Token.TokenCode.LPAREN;}
-			else if(arg.equals(")")) {return Token.TokenCode.RPAREN;}
-			else if(arg.equals(";")) {return Token.TokenCode.SEMICOL;}
-			else if(arg.matches("[0-9]+")) {return Token.TokenCode.INT;}
-			else if(arg.matches(".*[a-z].*") || arg.matches(".*[A-Z].*")) {return Token.TokenCode.ID;}		
-				
-			return Token.TokenCode.ERROR;			
-		}
+	public TokenCode nextToken()
+	{   
+		currentToken++;
+		if(arguments[currentToken].equals("print")) {return Token.TokenCode.PRINT;}
+		if(arguments[currentToken].equals("end")) {return Token.TokenCode.END;}
+		else if(arguments[currentToken].equals("+")) {return Token.TokenCode.ADD;}
+		else if(arguments[currentToken].equals("-")) {return Token.TokenCode.SUB;}
+		else if(arguments[currentToken].equals("*")) {return Token.TokenCode.MULT;}
+		else if(arguments[currentToken].equals("(")) {return Token.TokenCode.LPAREN;}
+		else if(arguments[currentToken].equals(")")) {return Token.TokenCode.RPAREN;}
+		else if(arguments[currentToken].equals(";")) {return Token.TokenCode.SEMICOL;}
+		else if(arguments[currentToken].matches("[0-9]+")) {return Token.TokenCode.INT;}
+		else if(arguments[currentToken].matches(".*[a-z].*") || arguments[currentToken].matches(".*[A-Z].*")) {return Token.TokenCode.ID;}		
+			
+		return Token.TokenCode.ERROR;			
+	
 		
 		return null;
 	}
