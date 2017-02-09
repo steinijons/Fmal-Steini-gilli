@@ -21,7 +21,7 @@ public class Parser {
 	
 	public void statements() 
 	{
-		//System.out.println("statements()");
+		System.out.println("statements()");
 		if(nextToken.tCode == Token.TokenCode.END)
 		{
 			return;
@@ -31,17 +31,17 @@ public class Parser {
 			statement();
 			if(nextToken.tCode == Token.TokenCode.SEMICOL)
 			{
-				//System.out.println("SEMICOL");
+				System.out.println("SEMICOL");
 				nextToken = lex.nextToken();
 				statements();
 			}
 			else
 			{
-				//System.out.println("SEMICOLERROR");
+				System.out.println("SEMICOLERROR");
 				error();
 			}
 		}
-		//System.out.println("statemenst()ERROR");
+		System.out.println("statemenst()ERROR");
 		error();
 		
 	}
@@ -49,45 +49,45 @@ public class Parser {
 	
 	public void statement() 
 	{
-		//System.out.println("statement()");
+		System.out.println("statement()");
 		if(nextToken.tCode == Token.TokenCode.ID)
 		{
-			//System.out.println("INNÍ ID");
+			System.out.println("INNÍ ID");
 			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lex.nextToken();
 			if(nextToken.tCode == Token.TokenCode.ASSIGN)
 			{
-				//System.out.println("INNÍ ASSIGN");
+				System.out.println("INNÍ ASSIGN");
 				nextToken = lex.nextToken();
 				expr();
 				System.out.println("ASSIGN");
 			}
 			else
 			{
-				//System.out.println("ASSIGNMENT ERROR");
+				System.out.println("ASSIGNMENT ERROR");
 				error();
 			}
 		}
 		else if(nextToken.tCode == Token.TokenCode.PRINT)
 		{
-			//System.out.println("INNÍ PRINT");
+			System.out.println("INNÍ PRINT");
 			nextToken = lex.nextToken();
 			System.out.println("PRINT");
 			if(nextToken.tCode == Token.TokenCode.ID)
 			{
-				//System.out.println("INNÍ PRINT ID");
+				System.out.println("INNÍ PRINT ID");
 				System.out.println("PUSH" + nextToken.lexeme);
 				nextToken = lex.nextToken();
 			}
 			else
 			{
-				//System.out.println("PRINT EKKI ID ERROR");
+				System.out.println("PRINT EKKI ID ERROR");
 				error();
 			}
 		}
 		else
 		{
-			//System.out.println("STATEMENT ERROR");
+			System.out.println("STATEMENT ERROR");
 			error();
 		}
 	}
@@ -96,18 +96,18 @@ public class Parser {
 	
 	public void expr()
 	{
-		//System.out.println("expr()");
+		System.out.println("expr()");
 		term();
 		if(nextToken.tCode == Token.TokenCode.ADD)
 		{
-			//System.out.println("INNÍ ADD");
+			System.out.println("INNÍ ADD");
 			nextToken = lex.nextToken();
 			expr();
 			System.out.println("ADD");
 		}
 		else if(nextToken.tCode == Token.TokenCode.SUB)
 		{
-			//System.out.println("INNÍ SUB");
+			System.out.println("INNÍ SUB");
 			nextToken = lex.nextToken();
 			expr();
 			System.out.println("SUB");
@@ -118,11 +118,11 @@ public class Parser {
 	
 	public void term()
 	{
-		//System.out.println("TERM()");
+		System.out.println("TERM()");
 		factor();
 		if(nextToken.tCode == Token.TokenCode.MULT)
 		{
-			//System.out.println("INNÍ MULT");
+			System.out.println("INNÍ MULT");
 			nextToken = lex.nextToken();
 			term();
 			System.out.println("MULT");
@@ -132,39 +132,41 @@ public class Parser {
 	//int | id | ( Expr )
 	public void factor()
 	{
-		//System.out.println("FACTOR()");
+		System.out.println("FACTOR()");
 		if(nextToken.tCode == Token.TokenCode.INT)
 		{
-			//System.out.println("FACTOR() INNÍ INT");
+			System.out.println("FACTOR() INNÍ INT");
 			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lex.nextToken();
 		}		
 		else if(nextToken.tCode == Token.TokenCode.ID)
 		{
-			//System.out.println("FACTOR() INNÍ INT");
+			System.out.println("FACTOR() INNÍ INT");
 			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lex.nextToken();
 		}
 		else if(nextToken.tCode == Token.TokenCode.LPAREN)
 		{
-			//System.out.println("FACTOR() INNÍ LPAREN");
+			System.out.println("FACTOR() INNÍ LPAREN");
 			nextToken = lex.nextToken();
 			expr();
+			System.out.println("HÉR ER ÉG!!!!!!!");
+			System.out.println(nextToken.lexeme);
 			
 			if(nextToken.tCode == Token.TokenCode.RPAREN)
 			{
-				//System.out.println("FACTOR() INNÍ RPAREN");
+				System.out.println("FACTOR() INNÍ RPAREN");
 				nextToken = lex.nextToken();
 			}
 			else
 			{
-				//System.out.println("FACTOR() EKKI LPAREN NÉ RPAREN");
+				System.out.println("FACTOR() EKKI LPAREN NÉ RPAREN");
 				error();
 			}
 		}
 		else
 		{
-			//System.out.println("FACTOR() ERROR");
+			System.out.println("FACTOR() ERROR");
 			error();
 		}
 	}
