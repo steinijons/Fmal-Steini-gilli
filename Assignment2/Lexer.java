@@ -1,30 +1,42 @@
 package Assignment2;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.CharArrayReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Lexer {
 	
-	
-	private static Scanner scanner = new Scanner(System.in);
-	
 	private int currentToken = -1;
-	public static char[] charInput;
+	private BufferedReader reader;
+	public char[] charInput;
 	public String word = "";
 
-
-
-	public Lexer()
+	public Lexer() throws IOException
 	{
-		String arguments = "";
-		while(scanner.hasNextLine())
-		{
-			arguments += scanner.hasNextLine();
-		}
-		charInput = arguments.toCharArray();			
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String tmp = br.readLine();
+        int length = tmp.length();
+        charInput = new char[length];
+        tmp.getChars(0, length, charInput, 0);
+        CharArrayReader input1 = new CharArrayReader(charInput);
+        int i;
+        System.out.print("input is:");
+        while ((i = input1.read()) != -1) 
+        {
+            System.out.print((char) i);
+        } 
 	}
 	
-	public Token nextToken()
-	{  
+	public Token nextToken() throws IOException
+	{    
+		CharArrayReader input1 = new CharArrayReader(charInput);
+		int i;
+    	System.out.print("now from nextToken():");
+    	while ((i = input1.read()) != -1) 
+    	{
+    		System.out.print((char) i);
+    	} 
 		currentToken++;				
 		if(Character.isLetter(charInput[currentToken]))
 		{
