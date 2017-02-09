@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Lexer {
-	
-	
+
 	private static Scanner scanner;
 	
 	private int currentToken = -1;
@@ -34,7 +33,7 @@ public class Lexer {
 	}
 	
 	public Token nextToken()
-	{  
+	{    
 		currentToken++;				
 		if(Character.isLetter(charInput.get(currentToken)))
 		{

@@ -1,5 +1,7 @@
 package Assignment2;
 
+import java.io.IOException;
+
 public class Parser {
 		
 	private Lexer lex;
@@ -9,43 +11,42 @@ public class Parser {
 	{
 		this.lex = lex;
 	}
-	public void parse() 
+	public void parse() throws IOException 
 	{
 		nextToken = lex.nextToken();
 		//System.out.println(nextToken);
-		Statements();
+		statements();
 	}
 	
 	// Statement ; Statements | end
 	
-	public void Statements()
+	public void statements() 
 	{
-		
 		if(nextToken.tCode == Token.TokenCode.END)
 		{
 			return;
 		}
 		else if(nextToken.tCode != Token.TokenCode.END)
 		{
-			Statement();
+			statement();
 			if(nextToken.tCode == Token.TokenCode.SEMICOL)
 			{
 				nextToken = lex.nextToken();
-				Statements();
+				statements();
 			}
 			else
 			{
-				Error();
+				error();
 			}
 		}
 		else
 		{
-			Error();
+			error();
 		}
 	}
 	// id = Expr | print id
 	
-	public void Statement()
+	public void statement() 
 	{
 		if(nextToken.tCode == Token.TokenCode.ID)
 		{
@@ -54,12 +55,12 @@ public class Parser {
 			
 			if(nextToken.tCode == Token.TokenCode.ASSIGN)
 			{
-				Expr();
+				expr();
 				System.out.println("ASSIGN");
 			}
 			else
 			{
-				Error();
+				error();
 			}
 		}
 		else if(nextToken.tCode == Token.TokenCode.PRINT)
@@ -73,53 +74,53 @@ public class Parser {
 			}
 			else
 			{
-				Error();
+				error();
 			}
 		}
 		else
 		{
-			Error();
+			error();
 		}
 	}
 	
 	//Term | Term + Expr | Term - Expr
 	
-	public void Expr()
+	public void expr()
 	{
-		Term();
+		term();
 		if(nextToken.tCode == Token.TokenCode.ADD)
 		{
 			nextToken = lex.nextToken();
-			Expr();
+			expr();
 			System.out.println("ADD");
 		}
 		else if(nextToken.tCode == Token.TokenCode.SUB)
 		{
 			nextToken = lex.nextToken();
-			Expr();
+			expr();
 			System.out.println("ADD");
 		}
 		else
 		{
-			Error();
+			error();
 		}
 	}
 	
 	//Factor | Factor * Term
 	
-	public void Term()
+	public void term()
 	{
-		Factor();
+		factor();
 		if(nextToken.tCode == Token.TokenCode.MULT)
 		{
 			nextToken = lex.nextToken();
-			Term();
+			term();
 			System.out.println("MULT");
 		}
 	}
 	
 	//int | id | ( Expr )
-	public void Factor()
+	public void factor()
 	{
 		if(nextToken.tCode == Token.TokenCode.INT)
 		{
@@ -132,7 +133,7 @@ public class Parser {
 		}
 		else if(nextToken.tCode == Token.TokenCode.LPAREN)
 		{
-			Expr();
+			expr();
 			nextToken = lex.nextToken();
 			if(nextToken.tCode == Token.TokenCode.RPAREN)
 			{
@@ -140,16 +141,16 @@ public class Parser {
 			}
 			else
 			{
-				Error();
+				error();
 			}
 		}
 		else
 		{
-			Error();
+			error();
 		}
 	}
 	
-	public void Error()
+	public void error()
 	{
 		System.out.println("ERROR!");
 	}
