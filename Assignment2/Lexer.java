@@ -6,57 +6,37 @@ import java.util.Scanner;
 public class Lexer {
 
 	private static Scanner scanner;
-	
-	private int currentToken = -1;
-	private ArrayList<Character> charInput;
+	private ArrayList<String> input;
+	private ArrayList<String> words;
 	public String word;
-
+	String arguments; 
 	public Lexer()
 	{
-		charInput = new ArrayList<Character>();
+		//System.out.println(System.in);
+		input = new ArrayList<String>();
 		scanner = new Scanner(System.in);
-		String arguments;
-		while(scanner.hasNextLine() && !( arguments = scanner.nextLine() ).equals( "" ))
+		while(scanner.hasNextLine() &&  !(arguments = scanner.nextLine() ).equals(""))
 		{
-			for(int i = 0; i < arguments.length(); i++)
-			{
-				charInput.add(arguments.charAt(i)); 
-			}
-			//charInput.add(' '); 
+			input.add(arguments); 
 		}
-		/*System.out.println("Reading in input stream done");
-		for(char c: charInput)
+		words = new ArrayList<String>();
+		for(String arg : input)
 		{
-			System.out.println(c);
-		}*/
-	}
-	
-	private void remove(int size)
-	{
-		//System.out.println("Word size: " + size);
-
-		//System.out.println("Remove: ");
-		charInput.subList(0, size).clear();
-		/*
-		for(char c : charInput)
-		{
-			System.out.print(Character.toString(c));
-		}*/
+			String[] temp = arg.split("\\s+");
+			for(String s : temp)
+			{
+				words.add(s);
+			}
+			
+		}
+		System.out.print(words);
 	}
 	
 	public Token nextToken()
 	{   
-		word = ""; 
-		for(char c : charInput)
-		{
-			word += Character.toString(c);
-			
-			if(c == ' ')
-			{
-				break;
-			}		
-		}
-		remove(word.length());			
+		word = input.get(0); 
+		input.remove(0);
+		//splita word svo hægt sé að gefa viðeigandi token :)
 		System.out.println("word: " + word);
 		if(word.equals("+")) {return new Token(Token.TokenCode.ADD, word);}
 		else if(word.equals("-")) {return new Token(Token.TokenCode.SUB, word);}
@@ -67,8 +47,9 @@ public class Lexer {
 		else if(word.equals("=")) {return new Token(Token.TokenCode.ASSIGN, word);}
 		
 		//System.out.println(word);
-		if(word.matches("[0-9]+"))
+		if(word.matches("[0-9]+") || word.matches(".*[a-z].*") || word.matches(".*[A-Z].*"))
 		{
+			
 			return new Token(Token.TokenCode.INT, word);
 		}
 		else if(word == "print")

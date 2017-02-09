@@ -14,7 +14,7 @@ public class Parser {
 	public void parse() throws IOException 
 	{
 		nextToken = lex.nextToken();
-		//System.out.println(nextToken.tCode);
+		System.out.println(nextToken.tCode);
 		statements();
 	}
 	
