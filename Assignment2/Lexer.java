@@ -8,8 +8,6 @@ import javax.net.ssl.SSLContext;
 public class Lexer {
 
 	private static Scanner scanner;
-	private ArrayList<String> input;
-	private ArrayList<String> words;
 	public String word;
 	String arguments; 
 	public int counter = -1;
@@ -19,6 +17,7 @@ public class Lexer {
 	{
 		
 		charInput = new ArrayList<Character>();
+<<<<<<< HEAD
 		scanner = new Scanner(System.in);
 		String arguments;
 		while(scanner.hasNextLine() && !( arguments = scanner.nextLine() ).equals( "" ))
@@ -50,10 +49,15 @@ public class Lexer {
 		
 		words = new ArrayList<String>();
 		for(String arg : input)
+=======
+		scanner = new Scanner(System.in);
+		String arguments;
+		while(scanner.hasNextLine() && !( arguments = scanner.nextLine() ).equals( "" ))
+>>>>>>> 73794daa7c0e5b50054d1c432d414ebe9acc927f
 		{
-			String[] temp = arg.split("\\s+");
-			for(String s : temp)
+			for(int i = 0; i < arguments.length(); i++)
 			{
+<<<<<<< HEAD
 				if(s.contains(";") || s.contains("(") || s.contains("-") || s.contains(")"))
 				{
 					String[] numb = s.split(";");
@@ -66,9 +70,12 @@ public class Lexer {
 					words.add(s);
 				}
 				
+=======
+				charInput.add(arguments.charAt(i));
+>>>>>>> 73794daa7c0e5b50054d1c432d414ebe9acc927f
 			}
-			
 		}
+<<<<<<< HEAD
 		System.out.println(words);
 	}*/
 	
@@ -139,11 +146,69 @@ public class Lexer {
 		/*if(isInteger(word))
 		{			
 			return new Token(Token.TokenCode.INT, word);
+=======
+	}
+	public Token nextToken()
+	{   
+		counter++;
+		System.out.println("Element: " + charInput.get(counter));
+		if(Character.isWhitespace(charInput.get(counter)))
+		{		
+			nextToken();
 		}
-		else if(word == "print")
+		
+		String string = "";
+		word = charInput.get(counter).toString();
+		//System.out.println("Current Element: " + word);
+		
+		if(Character.isLetter(charInput.get(counter)))
 		{
-			return new Token(Token.TokenCode.PRINT, word);				
+			//System.out.println("Fer inní isletter");
+			while(true)
+			{
+				if(Character.isLetter(charInput.get(counter)))
+				{
+					string += charInput.get(counter).toString();
+				}
+				else
+				{
+					break;
+				}		
+				counter++;
+			}
+			if(string.equals("print"))
+			{
+				counter--;
+				return new Token(Token.TokenCode.PRINT, string);
+			}
+			else if(string.equals("end"))
+			{
+				counter--;
+				return new Token(Token.TokenCode.END, string);
+			}
+			else if(Character.isWhitespace(charInput.get(counter)) || charInput.get(counter).equals(')'))
+			{
+				counter--;
+				return new Token(Token.TokenCode.ID, string);
+			}
+					
+>>>>>>> 73794daa7c0e5b50054d1c432d414ebe9acc927f
 		}
+		else
+		{
+			if(word.equals("+")) {return new Token(Token.TokenCode.ADD, word);}
+			else if(word.equals("-")) {return new Token(Token.TokenCode.SUB, word);}
+			else if(word.equals("*")) {return new Token(Token.TokenCode.MULT, word);}
+			else if(word.equals("(")) {return new Token(Token.TokenCode.LPAREN, word);}
+			else if(word.equals(")")) {return new Token(Token.TokenCode.RPAREN, word);}
+			else if(word.equals(";")) {return new Token(Token.TokenCode.SEMICOL, word);}
+			else if(word.equals("=")) {return new Token(Token.TokenCode.ASSIGN, word);}
+			else if(isInteger(word))
+			{			
+				return new Token(Token.TokenCode.INT, word);
+			}
+		}
+<<<<<<< HEAD
 		else if(word == "end")
 		{
 			return new Token(Token.TokenCode.END, word);
@@ -171,3 +236,28 @@ public class Lexer {
 	}
 		
 }
+=======
+		
+		return new Token(Token.TokenCode.ERROR, word);	
+	}	
+	
+	public boolean isInteger(String input)
+	{
+	   try
+	   {
+	      Integer.parseInt(input);
+	      
+	   }
+	   catch(NumberFormatException nfe)
+	   {
+	      return false;
+	   }
+	   return true;
+	}
+		
+}
+		
+
+
+		
+>>>>>>> 73794daa7c0e5b50054d1c432d414ebe9acc927f
