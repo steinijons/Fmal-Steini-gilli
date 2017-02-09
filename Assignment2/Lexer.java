@@ -27,7 +27,6 @@ public class Lexer {
 			{
 				words.add(s);
 			}
-			
 		}
 		System.out.print(words);
 		System.out.println("");
@@ -35,8 +34,9 @@ public class Lexer {
 	
 	public Token nextToken()
 	{   
-		word = input.get(0); 
-		input.remove(0);
+		word = words.get(0); 
+		//System.out.println(word + " size:" + word.length());
+		words.remove(0);
 		if(word.equals("+")) {return new Token(Token.TokenCode.ADD, word);}
 		else if(word.equals("-")) {return new Token(Token.TokenCode.SUB, word);}
 		else if(word.equals("*")) {return new Token(Token.TokenCode.MULT, word);}

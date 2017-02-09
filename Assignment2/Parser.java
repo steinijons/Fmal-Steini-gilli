@@ -48,14 +48,14 @@ public class Parser {
 	{
 		if(nextToken.tCode == Token.TokenCode.ID)
 		{
-			System.out.println(nextToken.lexeme);
+			//System.out.println(nextToken.lexeme);
 			nextToken = lex.nextToken();
 			System.out.println(nextToken.tCode);
 			if(nextToken.tCode == Token.TokenCode.ASSIGN)
 			{
-				System.out.println("ASSIGN");
-				expr();
-				
+				//System.out.println("ASSIGN");
+				nextToken = lex.nextToken();
+				expr();				
 			}
 			else
 			{
