@@ -10,6 +10,7 @@ public class Lexer {
 	private ArrayList<String> words;
 	public String word;
 	String arguments; 
+	public int counter = 0;
 	public Lexer()
 	{
 		//System.out.println(System.in);
@@ -22,22 +23,28 @@ public class Lexer {
 		words = new ArrayList<String>();
 		for(String arg : input)
 		{
-			String[] temp = arg.split("\\s+");
+			String[] temp = arg.split("\\s+|;");
 			for(String s : temp)
 			{
 				words.add(s);
 			}
 			
 		}
-		System.out.print(words);
+		System.out.println(words);
 	}
 	
 	public Token nextToken()
 	{   
-		word = input.get(0); 
-		input.remove(0);
+		
+		
+		word = words.get(counter).toString();
+		//word = input.get(0);
+		//input.remove(0);
 		//splita word svo hægt sé að gefa viðeigandi token :)
-		System.out.println("word: " + word);
+		System.out.println("Current Element: " + words.get(counter));
+		
+		counter++;
+		
 		if(word.equals("+")) {return new Token(Token.TokenCode.ADD, word);}
 		else if(word.equals("-")) {return new Token(Token.TokenCode.SUB, word);}
 		else if(word.equals("*")) {return new Token(Token.TokenCode.MULT, word);}
@@ -46,10 +53,11 @@ public class Lexer {
 		else if(word.equals(";")) {return new Token(Token.TokenCode.SEMICOL, word);}
 		else if(word.equals("=")) {return new Token(Token.TokenCode.ASSIGN, word);}
 		
+		   
 		//System.out.println(word);
-		if(word.matches("[0-9]+") || word.matches(".*[a-z].*") || word.matches(".*[A-Z].*"))
-		{
-			
+		if(isInteger(word))
+		{			
+			System.out.println("TALA!!");
 			return new Token(Token.TokenCode.INT, word);
 		}
 		else if(word == "print")
@@ -65,8 +73,22 @@ public class Lexer {
 			return new Token(Token.TokenCode.ID, word);
 		}			
 		
-		return new Token(Token.TokenCode.SEMICOL, word);	
-	}				
+		return new Token(Token.TokenCode.ERROR, word);	
+	}	
+	
+	public boolean isInteger(String input)
+	{
+	   try
+	   {
+	      Integer.parseInt(input);
+	      
+	   }
+	   catch(NumberFormatException nfe)
+	   {
+	      return false;
+	   }
+	   return true;
+	}
 		
 }
 		

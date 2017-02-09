@@ -14,7 +14,6 @@ public class Parser {
 	public void parse() throws IOException 
 	{
 		nextToken = lex.nextToken();
-		System.out.println(nextToken.tCode);
 		statements();
 	}
 	
@@ -48,14 +47,13 @@ public class Parser {
 	{
 		if(nextToken.tCode == Token.TokenCode.ID)
 		{
-			System.out.println(nextToken.lexeme);
+			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lex.nextToken();
-			System.out.println(nextToken.tCode);
 			if(nextToken.tCode == Token.TokenCode.ASSIGN)
 			{
-				System.out.println("ASSIGN");
-				expr();
 				
+				nextToken = lex.nextToken();
+				expr();
 			}
 			else
 			{
@@ -123,7 +121,7 @@ public class Parser {
 	{
 		if(nextToken.tCode == Token.TokenCode.INT)
 		{
-			System.out.println("PUSH" + nextToken.lexeme);
+			System.out.println("PUSH " + nextToken.lexeme);
 			nextToken = lex.nextToken();
 		}
 		else if(nextToken.tCode == Token.TokenCode.ID)
