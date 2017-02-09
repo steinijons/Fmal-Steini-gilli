@@ -2,7 +2,7 @@ package Assignment2;
 
 public class Parser {
 		
-	private Lexer lex = new Lexer();
+	private Lexer lex;
 	private Token nextToken;
 	
 	public Parser(Lexer lex)
@@ -12,6 +12,8 @@ public class Parser {
 	public void parse() 
 	{
 		nextToken = lex.nextToken();
+		//System.out.println(nextToken);
+		Statements();
 	}
 	
 	// Statement ; Statements | end
