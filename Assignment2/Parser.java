@@ -72,11 +72,11 @@ public class Parser {
 		{
 			System.out.println("INNÍ PRINT");
 			nextToken = lex.nextToken();
-			System.out.println("PRINT");
+			//System.out.println("PRINT");
 			if(nextToken.tCode == Token.TokenCode.ID)
 			{
 				System.out.println("INNÍ PRINT ID");
-				System.out.println("PUSH" + nextToken.lexeme);
+				System.out.println("PUSH " + nextToken.lexeme);
 				nextToken = lex.nextToken();
 			}
 			else
@@ -84,6 +84,7 @@ public class Parser {
 				System.out.println("PRINT EKKI ID ERROR");
 				error();
 			}
+			System.out.println("PRINT");
 		}
 		else
 		{
@@ -143,7 +144,9 @@ public class Parser {
 		{
 			System.out.println("FACTOR() INNÍ INT");
 			System.out.println("PUSH " + nextToken.lexeme);
+			System.out.println(nextToken.lexeme);
 			nextToken = lex.nextToken();
+			System.out.println(nextToken.lexeme);
 		}
 		else if(nextToken.tCode == Token.TokenCode.LPAREN)
 		{
@@ -174,5 +177,6 @@ public class Parser {
 	public void error()
 	{
 		System.out.println("Syntax error!");
+		System.exit(1);
 	}
 }
