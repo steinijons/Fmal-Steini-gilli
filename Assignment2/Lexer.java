@@ -3,6 +3,8 @@ package Assignment2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.net.ssl.SSLContext;
+
 public class Lexer {
 
 	private static Scanner scanner;
@@ -23,10 +25,20 @@ public class Lexer {
 		words = new ArrayList<String>();
 		for(String arg : input)
 		{
-			String[] temp = arg.split("\\s+|;");
+			String[] temp = arg.split("\\s+");
 			for(String s : temp)
 			{
-				words.add(s);
+				if(s.contains(";") || s.contains("(") || s.contains("-") || s.contains(")"))
+				{
+					String[] numb = s.split(";");
+					words.add(numb[0]);
+					words.add(";");
+				}
+				else
+				{
+					words.add(s);
+				}
+				
 			}
 			
 		}
@@ -41,7 +53,7 @@ public class Lexer {
 		//word = input.get(0);
 		//input.remove(0);
 		//splita word svo hægt sé að gefa viðeigandi token :)
-		System.out.println("Current Element: " + words.get(counter));
+		//System.out.println("Current Element: " + words.get(counter));
 		
 		counter++;
 		
@@ -57,7 +69,6 @@ public class Lexer {
 		//System.out.println(word);
 		if(isInteger(word))
 		{			
-			System.out.println("TALA!!");
 			return new Token(Token.TokenCode.INT, word);
 		}
 		else if(word == "print")
