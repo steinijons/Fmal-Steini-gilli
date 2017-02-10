@@ -114,22 +114,26 @@ public class Interpreter {
 					}
 					else
 					{
-						stack.push(Integer.toString(Integer.parseInt(second) + Integer.parseInt(first)).toString());
+						stack.push(Integer.toString(y + x));
 					}
 				}
+				else 
+				{
+					stack.push(Integer.toString(Integer.parseInt(second) + Integer.parseInt(first)).toString());
+				}	
 			}
 			else 
 			{
 				//System.out.println("from:" + arguments.substring(5, arguments.length()));
 				String input = arguments.substring(5, arguments.length());
-				stack.push(input);
-				/*String temp = "[0-9]+";
+				//stack.push(input);
+				String temp = "[0-9]+";
 				Pattern pattern = Pattern.compile(temp);
 				Matcher matcher = pattern.matcher(input);
 				if(matcher.find())
 				{
 					stack.push(input);
-					break;
+					continue;
 				}
 				temp = "[a-zA-Z]+";
 				pattern = Pattern.compile(temp);
@@ -137,11 +141,11 @@ public class Interpreter {
 				if(matcher.find())
 				{
 					stack.push(input);
-					break;
+					continue;
 				}
 				System.out.println("Error for operator: " + input);
 				System.exit(1);
-				*/
+				
 			}
 		}		
 	}
