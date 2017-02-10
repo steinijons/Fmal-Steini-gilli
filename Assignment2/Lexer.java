@@ -23,6 +23,10 @@ public class Lexer {
 			{
 				charInput.add(arguments.charAt(i));
 			}
+			if(arguments.equals("end"))
+			{
+				break;
+			}
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package Assignment2;
 
-import java.io.IOException;
-
 public class Parser {
 		
 	private Lexer lex;
