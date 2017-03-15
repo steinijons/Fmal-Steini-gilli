@@ -2,8 +2,5 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname 1a-maxElement) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 (define (maxElement lis)
-    (cond 
-       ((null? (cdr lis)) '())
-       (else (max (car lis) (maxElement (cdr lis))))
-    )
+	(apply max lis)
 )
